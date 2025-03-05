@@ -1,4 +1,5 @@
 import logging
+import subprocess
 import tkinter as tk
 from enum import Enum
 
@@ -105,6 +106,10 @@ class ScanPanel(tk.LabelFrame):
     def stop_scan(self):
         self.main_frame.stop_scan_asked = True
 
+    def open_reports(self):
+        report_path = "/home/nsat/NSAT_Front/report"
+        subprocess.call(["/usr/bin/pcmanfm", "/home/nsat/NSAT_Front/report"])
+
     def get_network_file_data(self):
 
         network_file_path = AppConfig.get_value('network_file_path')
@@ -172,7 +177,11 @@ class ScanPanel(tk.LabelFrame):
         start_bn.pack(pady=(80,5))
 
         # Scan stop
-        start_bn = tk.Button(self.right_frame, text='Stop Scan', command=self.stop_scan)
-        start_bn.pack(pady=5)
+        stop_bn = tk.Button(self.right_frame, text='Stop Scan', command=self.stop_scan)
+        stop_bn.pack(pady=5)
+
+        # Report stop
+        report_bn = tk.Button(self.right_frame, text='Open reports', command=self.open_reports)
+        report_bn.pack(pady=5)
 
         self.set_middle_bottom_panels()
